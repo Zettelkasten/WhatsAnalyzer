@@ -3,8 +3,9 @@ package com.zettelnet.whatsanalyzer;
 import java.time.LocalDateTime;
 
 /**
- * Represents a chat message in a {@link Chat} sent at a given time by a give
- * author. Chat messages consist out of one or multiple lines.
+ * Represents a chat message in a {@link Chat} sent at a given time by a given
+ * author. Chat messages have a {@link ChatMessageType} and consist out of one
+ * or multiple lines.
  * 
  * @author Zettelkasten
  *
@@ -14,11 +15,14 @@ public class ChatMessage {
 	private final String author;
 	private final LocalDateTime time;
 
+	private final ChatMessageType type;
+
 	private String[] content;
 
-	public ChatMessage(final String author, final LocalDateTime time, final String... content) {
+	public ChatMessage(final String author, final LocalDateTime time, final ChatMessageType type, final String... content) {
 		this.author = author;
 		this.time = time;
+		this.type = type;
 		this.content = content;
 	}
 
@@ -28,6 +32,10 @@ public class ChatMessage {
 
 	public LocalDateTime getTime() {
 		return time;
+	}
+
+	public ChatMessageType getType() {
+		return type;
 	}
 
 	public String[] getLines() {

@@ -4,19 +4,24 @@ import java.time.LocalTime;
 import java.util.function.ToDoubleFunction;
 
 import com.zettelnet.whatsanalyzer.ChatMessage;
+import com.zettelnet.whatsanalyzer.ChatMessageType;
 
 public class ElementaryValue {
 
 	public static ToDoubleFunction<ChatMessage> MESSAGE_COUNT = (ChatMessage message) -> {
-		return 1;
+		return (message.getType() == ChatMessageType.MESSAGE) ? 1 : 0;
+	};
+	
+	public static ToDoubleFunction<ChatMessage> MEDIUM_COUNT = (ChatMessage message) -> {
+		return (message.getType() == ChatMessageType.MEDIUM) ? 1 : 0;
+	};
+	
+	public static ToDoubleFunction<ChatMessage> LOCATION_COUNT = (ChatMessage message) -> {
+		return (message.getType() == ChatMessageType.LOCATION) ? 1 : 0;
 	};
 
 	public static ToDoubleFunction<ChatMessage> CHARACTER_COUNT = (ChatMessage message) -> {
 		return message.getContent().length();
-	};
-	
-	public static ToDoubleFunction<ChatMessage> MEDIA_COUNT = (ChatMessage message) -> {
-		return message.getContent().equals("<Medien weggelassen>") ? 1 : 0;
 	};
 
 	public static ToDoubleFunction<ChatMessage> MESSAGES_SENT_MIDNIGHT_COUNT = (ChatMessage message) -> {

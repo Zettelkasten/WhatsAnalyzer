@@ -81,17 +81,28 @@ public class ChatParser {
 		if (!nonTimeString.startsWith(AUTHOR_PREFIX)) {
 			return appendMessage(line, chat);
 		}
-		String[] authorAndMessage = nonTimeString.substring(AUTHOR_PREFIX.length()).split(AUTHOR_MESSAGE_SPLIT);
+		String[] authorAndMessage = nonTimeString.substring(AUTHOR_PREFIX.length()).split(AUTHOR_MESSAGE_SPLIT, 2);
 		if (authorAndMessage.length != 2) {
 			return appendMessage(line, chat);
 		}
 		String author = authorAndMessage[0];
 		String content = authorAndMessage[1];
 
-		ChatMessage message = new ChatMessage(author, time, content);
+		ChatMessageType type = parseMessageType(content);
+		ChatMessage message = new ChatMessage(author, time, type, content);
 		chat.appendMessage(message);
 
 		return message;
+	}
+
+	private ChatMessageType parseMessageType(String content) {
+		if (content.equals("<Medien weggelassen>")) {
+			return ChatMessageType.MEDIUM;
+		} else if (content.startsWith("Standort: https://maps.google.com/?q=")) {
+			return ChatMessageType.LOCATION;
+		} else {
+			return ChatMessageType.MESSAGE;
+		}
 	}
 
 	private ChatMessage appendMessage(String line, Chat chat) {
