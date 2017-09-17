@@ -9,6 +9,12 @@ import com.zettelnet.whatsanalyzer.group.GroupCriteria;
 import com.zettelnet.whatsanalyzer.query.QueryColumn;
 import com.zettelnet.whatsanalyzer.query.QueryTable;
 
+/**
+ * Represents a list of {@link ChatMessage}s.
+ * 
+ * @author Zettelkasten
+ *
+ */
 public class Chat implements Iterable<ChatMessage> {
 
 	private final List<ChatMessage> messages;

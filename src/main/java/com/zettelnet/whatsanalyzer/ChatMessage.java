@@ -2,6 +2,13 @@ package com.zettelnet.whatsanalyzer;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a chat message in a {@link Chat} sent at a given time by a give
+ * author. Chat messages consist out of one or multiple lines.
+ * 
+ * @author Zettelkasten
+ *
+ */
 public class ChatMessage {
 
 	private final String author;
@@ -26,16 +33,22 @@ public class ChatMessage {
 	public String[] getLines() {
 		return content;
 	}
-	
+
 	public String getContent() {
 		return String.join("\n", content);
 	}
-	
+
 	@Override
 	public String toString() {
 		return time + " - " + author + ": " + getContent();
 	}
 
+	/**
+	 * Adds a line to this chat message.
+	 * 
+	 * @param line
+	 *            the line to add
+	 */
 	public void append(String line) {
 		String[] oldContent = this.content;
 		this.content = new String[oldContent.length + 1];
