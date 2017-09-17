@@ -17,6 +17,7 @@ public interface GroupCriteria<T> {
 	public static final GroupCriteria<LocalDateTime> BY_HOUR = new GroupByHour();
 
 	public static final GroupCriteria<LocalDate> BY_DAY = new GroupByDay();
+	public static final GroupCriteria<LocalDate> BY_WEEK = new GroupByWeek();
 	public static final GroupCriteria<LocalDate> BY_MONTH = new GroupByMonth();
 	public static final GroupCriteria<LocalDate> BY_YEAR = new GroupByYear();
 
