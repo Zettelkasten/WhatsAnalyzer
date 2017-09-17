@@ -1,6 +1,8 @@
 package com.zettelnet.whatsanalyzer.group;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,5 +24,10 @@ public class GroupByHourOfDay implements GroupCriteria<LocalTime> {
 		} while (min.isBefore(max));
 		values.add(max);
 		return values;
+	}
+	
+	@Override
+	public String name(LocalTime value) {
+		return value.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
 	}
 }

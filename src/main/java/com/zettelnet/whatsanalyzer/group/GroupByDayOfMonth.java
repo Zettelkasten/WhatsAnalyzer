@@ -18,4 +18,9 @@ public class GroupByDayOfMonth implements GroupCriteria<Integer> {
 		// always return all values
 		return IntStream.range(1, 31 + 1).boxed().collect(Collectors.toList());
 	}
+	
+	@Override
+	public String name(Integer value) {
+		return String.valueOf(value);
+	}
 }

@@ -17,4 +17,9 @@ public class GroupByMessageType implements GroupCriteria<ChatMessageType> {
 	public Collection<ChatMessageType> values(ChatMessageType min, ChatMessageType max) {
 		return Arrays.asList(ChatMessageType.values());
 	}
+	
+	@Override
+	public String name(ChatMessageType value) {
+		return value.name();
+	}
 }

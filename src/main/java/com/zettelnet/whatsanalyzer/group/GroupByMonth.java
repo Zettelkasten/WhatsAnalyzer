@@ -1,6 +1,7 @@
 package com.zettelnet.whatsanalyzer.group;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -22,5 +23,10 @@ public class GroupByMonth implements GroupCriteria<LocalDate> {
 		} while (min.isBefore(max));
 		values.add(max);
 		return values;
+	}
+	
+	@Override
+	public String name(LocalDate value) {
+		return value.format(DateTimeFormatter.ofPattern("MMM uuuu"));
 	}
 }
