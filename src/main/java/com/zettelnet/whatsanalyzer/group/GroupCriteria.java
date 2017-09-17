@@ -4,9 +4,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.Collection;
 
 import com.zettelnet.whatsanalyzer.ChatMessage;
+import com.zettelnet.whatsanalyzer.ChatMessageType;
 
 public interface GroupCriteria<T> {
 
@@ -26,7 +28,11 @@ public interface GroupCriteria<T> {
 	public static final GroupCriteria<Integer> BY_DAY_OF_MONTH = new GroupByDayOfMonth();
 	public static final GroupCriteria<Integer> BY_DAY_OF_YEAR = new GroupByDayOfYear();
 
+	public static final GroupCriteria<Month> BY_MONTH_OF_YEAR = new GroupByMonthOfYear();
+
 	public static final GroupCriteria<String> BY_AUTHOR = new GroupByAuthor();
+
+	public static final GroupCriteria<ChatMessageType> BY_MESSAGE_TYPE = new GroupByMessageType();
 
 	T group(ChatMessage message);
 
