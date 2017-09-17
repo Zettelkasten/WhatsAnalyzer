@@ -37,4 +37,8 @@ public interface GroupCriteria<T> {
 	T group(ChatMessage message);
 
 	Collection<T> values(T min, T max);
+	
+	default String name(T value) {
+		return String.valueOf(value);
+	}
 }

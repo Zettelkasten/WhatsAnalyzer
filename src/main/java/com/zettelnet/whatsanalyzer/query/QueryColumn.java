@@ -65,10 +65,19 @@ public class QueryColumn<T> implements QueryResult {
 		bake();
 
 		for (T category : getCategories()) {
-			out.print(category);
+			out.print(criteria.name(category));
 			out.print('\t');
 			out.print((int) get(category));
 			out.println();
 		}
+	}
+	
+	@Override
+	public ToDoubleFunction<ChatMessage> getElementaryValue() {
+		return elementaryValue;
+	}
+	
+	public GroupCriteria<T> getGroupCriteria() {
+		return criteria;
 	}
 }

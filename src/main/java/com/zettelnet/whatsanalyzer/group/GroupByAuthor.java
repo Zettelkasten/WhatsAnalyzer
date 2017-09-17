@@ -16,4 +16,9 @@ public class GroupByAuthor implements GroupCriteria<String> {
 	public Collection<String> values(String min, String max) {
 		return Collections.emptyList();
 	}
+	
+	@Override
+	public String name(String value) {
+		return value;
+	}
 }

@@ -23,4 +23,9 @@ public class GroupByYear implements GroupCriteria<LocalDate> {
 		values.add(max);
 		return values;
 	}
+	
+	@Override
+	public String name(LocalDate value) {
+		return String.valueOf(value.getYear());
+	}
 }

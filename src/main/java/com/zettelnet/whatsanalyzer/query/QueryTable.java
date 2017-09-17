@@ -76,12 +76,12 @@ public class QueryTable<A, B> implements QueryResult {
 		// header
 		out.print('\t');
 		for (A firstCategory : getFirstCategories()) {
-			out.print(firstCategory);
+			out.print(firstCriteria.name(firstCategory));
 			out.print('\t');
 		}
 		out.println();
 		for (B secondCategory : getSecondCategories()) {
-			out.print(secondCategory);
+			out.print(secondCriteria.name(secondCategory));
 			out.print('\t');
 			for (A firstCategory : getFirstCategories()) {
 				out.print((int) get(firstCategory, secondCategory));
@@ -89,5 +89,18 @@ public class QueryTable<A, B> implements QueryResult {
 			}
 			out.println();
 		}
+	}
+
+	@Override
+	public ToDoubleFunction<ChatMessage> getElementaryValue() {
+		return elementaryValue;
+	}
+
+	public GroupCriteria<A> getFirstGroupCriteria() {
+		return firstCriteria;
+	}
+
+	public GroupCriteria<B> getSecondGroupCriteria() {
+		return secondCriteria;
 	}
 }
