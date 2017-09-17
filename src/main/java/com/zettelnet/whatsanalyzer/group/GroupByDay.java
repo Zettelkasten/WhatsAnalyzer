@@ -30,4 +30,9 @@ public class GroupByDay implements GroupCriteria<LocalDate> {
 	public String name(LocalDate value) {
 		return value.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Tag";
+	}
 }

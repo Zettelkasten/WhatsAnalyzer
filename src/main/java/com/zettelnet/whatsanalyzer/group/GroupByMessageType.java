@@ -22,4 +22,9 @@ public class GroupByMessageType implements GroupCriteria<ChatMessageType> {
 	public String name(ChatMessageType value) {
 		return value.name();
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Nachrichtenart";
+	}
 }

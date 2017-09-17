@@ -30,4 +30,9 @@ public class GroupByHourOfDay implements GroupCriteria<LocalTime> {
 	public String name(LocalTime value) {
 		return value.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT));
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Stunde";
+	}
 }

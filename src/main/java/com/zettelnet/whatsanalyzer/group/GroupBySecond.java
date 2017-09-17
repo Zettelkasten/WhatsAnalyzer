@@ -30,4 +30,9 @@ public class GroupBySecond implements GroupCriteria<LocalDateTime> {
 	public String name(LocalDateTime value) {
 		return value.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM));
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Sekunde";
+	}
 }

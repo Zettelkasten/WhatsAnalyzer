@@ -23,4 +23,9 @@ public class GroupByDayOfYear implements GroupCriteria<Integer> {
 	public String name(Integer value) {
 		return String.valueOf(value);
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Jahrestag";
+	}
 }

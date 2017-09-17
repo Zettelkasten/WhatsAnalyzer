@@ -28,4 +28,9 @@ public class GroupByYear implements GroupCriteria<LocalDate> {
 	public String name(LocalDate value) {
 		return String.valueOf(value.getYear());
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Jahr";
+	}
 }

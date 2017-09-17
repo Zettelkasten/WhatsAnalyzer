@@ -29,4 +29,9 @@ public class GroupByMonth implements GroupCriteria<LocalDate> {
 	public String name(LocalDate value) {
 		return value.format(DateTimeFormatter.ofPattern("MMM uuuu"));
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Monat";
+	}
 }

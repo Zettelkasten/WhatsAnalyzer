@@ -21,4 +21,9 @@ public class GroupByAuthor implements GroupCriteria<String> {
 	public String name(String value) {
 		return value;
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Autor";
+	}
 }

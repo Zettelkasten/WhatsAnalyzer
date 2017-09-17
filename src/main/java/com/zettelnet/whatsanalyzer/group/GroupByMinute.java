@@ -30,4 +30,9 @@ public class GroupByMinute implements GroupCriteria<LocalDateTime> {
 	public String name(LocalDateTime value) {
 		return value.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT));
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Minute";
+	}
 }

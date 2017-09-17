@@ -25,4 +25,9 @@ public class GroupByMonthOfYear implements GroupCriteria<Month> {
 	public String name(Month value) {
 		return value.getDisplayName(TextStyle.FULL, Locale.getDefault());
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Monat";
+	}
 }

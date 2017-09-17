@@ -25,4 +25,9 @@ public class GroupByDayOfWeek implements GroupCriteria<DayOfWeek> {
 	public String name(DayOfWeek value) {
 		return value.getDisplayName(TextStyle.FULL, Locale.getDefault());
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Wochentag";
+	}
 }

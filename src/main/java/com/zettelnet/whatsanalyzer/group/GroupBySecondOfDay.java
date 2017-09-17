@@ -30,4 +30,9 @@ public class GroupBySecondOfDay implements GroupCriteria<LocalTime> {
 	public String name(LocalTime value) {
 		return value.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM));
 	}
+	
+	@Override
+	public String toString() {
+		return "pro Sekunde des Tages";
+	}
 }
