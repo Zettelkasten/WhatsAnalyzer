@@ -6,21 +6,21 @@ import java.util.List;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.function.ToDoubleFunction;
 
 import com.zettelnet.whatsanalyzer.ChatMessage;
 import com.zettelnet.whatsanalyzer.group.GroupCriteria;
+import com.zettelnet.whatsanalyzer.value.ElementaryValue;
 
 public class QueryColumn<T> implements QueryResult {
 
-	private final ToDoubleFunction<ChatMessage> elementaryValue;
+	private final ElementaryValue elementaryValue;
 	private final GroupCriteria<T> criteria;
 
 	private final SortedMap<T, List<ChatMessage>> groupedData;
 
 	private boolean baked = true;
 
-	public QueryColumn(ToDoubleFunction<ChatMessage> elementaryValue, GroupCriteria<T> criteria) {
+	public QueryColumn(ElementaryValue elementaryValue, GroupCriteria<T> criteria) {
 		this.criteria = criteria;
 		this.elementaryValue = elementaryValue;
 		this.groupedData = new TreeMap<>();
@@ -57,7 +57,7 @@ public class QueryColumn<T> implements QueryResult {
 	}
 
 	public double get(T category) {
-		return getMessages(category).stream().mapToDouble(elementaryValue).sum();
+		return getMessages(category).stream().mapToDouble(elementaryValue::count).sum();
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class QueryColumn<T> implements QueryResult {
 	}
 	
 	@Override
-	public ToDoubleFunction<ChatMessage> getElementaryValue() {
+	public ElementaryValue getElementaryValue() {
 		return elementaryValue;
 	}
 	

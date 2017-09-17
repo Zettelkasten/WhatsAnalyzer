@@ -10,14 +10,14 @@ import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
-import java.util.function.ToDoubleFunction;
 
 import com.zettelnet.whatsanalyzer.ChatMessage;
 import com.zettelnet.whatsanalyzer.group.GroupCriteria;
+import com.zettelnet.whatsanalyzer.value.ElementaryValue;
 
 public class QueryTable<A, B> implements QueryResult {
 
-	private final ToDoubleFunction<ChatMessage> elementaryValue;
+	private final ElementaryValue elementaryValue;
 
 	private final GroupCriteria<A> firstCriteria;
 	private final GroupCriteria<B> secondCriteria;
@@ -27,7 +27,7 @@ public class QueryTable<A, B> implements QueryResult {
 
 	private final SortedMap<A, SortedMap<B, List<ChatMessage>>> values;
 
-	public QueryTable(ToDoubleFunction<ChatMessage> elementaryValue, GroupCriteria<A> firstCriteria, GroupCriteria<B> secondCriteria) {
+	public QueryTable(ElementaryValue elementaryValue, GroupCriteria<A> firstCriteria, GroupCriteria<B> secondCriteria) {
 		this.elementaryValue = elementaryValue;
 
 		this.firstCriteria = firstCriteria;
@@ -68,7 +68,7 @@ public class QueryTable<A, B> implements QueryResult {
 	}
 
 	public double get(A firstCategory, B secondCategory) {
-		return getMessages(firstCategory, secondCategory).stream().mapToDouble(elementaryValue).sum();
+		return getMessages(firstCategory, secondCategory).stream().mapToDouble(elementaryValue::count).sum();
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class QueryTable<A, B> implements QueryResult {
 	}
 
 	@Override
-	public ToDoubleFunction<ChatMessage> getElementaryValue() {
+	public ElementaryValue getElementaryValue() {
 		return elementaryValue;
 	}
 

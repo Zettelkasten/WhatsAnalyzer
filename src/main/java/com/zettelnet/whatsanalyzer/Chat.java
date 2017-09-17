@@ -3,11 +3,11 @@ package com.zettelnet.whatsanalyzer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.ToDoubleFunction;
 
 import com.zettelnet.whatsanalyzer.group.GroupCriteria;
 import com.zettelnet.whatsanalyzer.query.QueryColumn;
 import com.zettelnet.whatsanalyzer.query.QueryTable;
+import com.zettelnet.whatsanalyzer.value.ElementaryValue;
 
 /**
  * Represents a list of {@link ChatMessage}s.
@@ -40,7 +40,7 @@ public class Chat implements Iterable<ChatMessage> {
 		messages.add(message);
 	}
 
-	public <T> QueryColumn<T> query(ToDoubleFunction<ChatMessage> elementaryValue, GroupCriteria<T> criteria) {
+	public <T> QueryColumn<T> query(ElementaryValue elementaryValue, GroupCriteria<T> criteria) {
 		QueryColumn<T> result = new QueryColumn<>(elementaryValue, criteria);
 		for (ChatMessage message : this) {
 			result.insert(message);
@@ -48,7 +48,7 @@ public class Chat implements Iterable<ChatMessage> {
 		return result;
 	}
 
-	public <A, B> QueryTable<A, B> query(ToDoubleFunction<ChatMessage> elementaryValue, GroupCriteria<A> firstCriteria, GroupCriteria<B> secondCriteria) {
+	public <A, B> QueryTable<A, B> query(ElementaryValue elementaryValue, GroupCriteria<A> firstCriteria, GroupCriteria<B> secondCriteria) {
 		QueryTable<A, B> result = new QueryTable<>(elementaryValue, firstCriteria, secondCriteria);
 		for (ChatMessage message : this) {
 			result.insert(message);
