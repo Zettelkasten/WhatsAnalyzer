@@ -41,7 +41,7 @@ public class QueryColumn<T> implements QueryResult {
 		}
 
 		for (T category : criteria.values(groupedData.firstKey(), groupedData.lastKey())) {
-			groupedData.putIfAbsent(category, new ArrayList<>());
+			groupedData.computeIfAbsent(category, (T c) -> new ArrayList<>());
 		}
 
 		this.baked = true;

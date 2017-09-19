@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
-import java.util.SortedSet;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 import com.zettelnet.whatsanalyzer.ChatMessage;
 import com.zettelnet.whatsanalyzer.group.GroupCriteria;
@@ -22,10 +20,9 @@ public class QueryTable<A, B> implements QueryResult {
 	private final GroupCriteria<A> firstCriteria;
 	private final GroupCriteria<B> secondCriteria;
 
-	private final SortedSet<A> firstCategories;
-	private final SortedSet<B> secondCategories;
-
 	private final SortedMap<A, SortedMap<B, List<ChatMessage>>> values;
+
+	private boolean baked = true;
 
 	public QueryTable(ElementaryValue elementaryValue, GroupCriteria<A> firstCriteria, GroupCriteria<B> secondCriteria) {
 		this.elementaryValue = elementaryValue;
@@ -33,8 +30,6 @@ public class QueryTable<A, B> implements QueryResult {
 		this.firstCriteria = firstCriteria;
 		this.secondCriteria = secondCriteria;
 
-		this.firstCategories = new TreeSet<>();
-		this.secondCategories = new TreeSet<>();
 		this.values = new TreeMap<>();
 	}
 
@@ -44,23 +39,47 @@ public class QueryTable<A, B> implements QueryResult {
 
 		if (!values.containsKey(firstCategory)) {
 			values.put(firstCategory, new TreeMap<>());
-			firstCategories.add(firstCategory);
-
 		}
+
 		Map<B, List<ChatMessage>> secondGrouped = values.get(firstCategory);
 		if (!secondGrouped.containsKey(secondCategory)) {
 			secondGrouped.put(secondCategory, new ArrayList<>());
-			secondCategories.add(secondCategory);
 		}
 		secondGrouped.get(secondCategory).add(message);
+
+		this.baked = false;
+	}
+
+	public void bake() {
+		if (this.baked) {
+			return;
+		}
+
+		for (A firstCategory : firstCriteria.values(values.firstKey(), values.lastKey())) {
+			values.computeIfAbsent(firstCategory, (A c) -> new TreeMap<>());
+		}
+
+		// cannot join loops: values.keySet() might contain keys that
+		// firstCriteria.values(first, last) doesn't!
+		for (A firstCategory : values.keySet()) {
+			SortedMap<B, List<ChatMessage>> secondValues = values.get(firstCategory);
+			for (B secondCategory : secondCriteria.values(secondValues.firstKey(), secondValues.lastKey())) {
+				secondValues.computeIfAbsent(secondCategory, (B c) -> new ArrayList<>());
+
+			}
+		}
+
+		this.baked = true;
 	}
 
 	public Set<A> getFirstCategories() {
-		return firstCategories;
+		bake();
+		return values.keySet();
 	}
 
 	public Set<B> getSecondCategories() {
-		return secondCategories;
+		bake();
+		return values.get(values.firstKey()).keySet();
 	}
 
 	public List<ChatMessage> getMessages(A firstCategory, B secondCategory) {
